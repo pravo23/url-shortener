@@ -1,110 +1,72 @@
 # URL Shortener Service
 
-This is a simple URL Shortener service built using the Gin framework for the web server. The service allows users to shorten URLs and redirect shortened URLs to the original URLs.
+A simple URL Shortener service built with the Gin framework.
 
 ## Features
 
-- Shorten a given URL.
-- Redirect to the original URL using the shortened URL.
+- Shorten URLs
+- Redirect shortened URLs to original URLs
 
 ## Requirements
 
 - Go 1.16+
 - Gin framework
-- URL Shortener handler and store packages
 
 ## Installation
 
 1. Clone the repository:
-
    ```sh
    git clone https://github.com/pravo23/url-shortener.git
    ```
-
 2. Navigate to the project directory:
-
    ```sh
    cd url-shortener
    ```
-
-3. Install the required dependencies:
-
+3. Install dependencies:
    ```sh
    go mod tidy
    ```
 
 ## Usage
 
-1. Start the web server:
-
+1. Start the server:
    ```sh
    go run main.go
    ```
-
-   The server will start on port `9808`.
+   The server will run on port `9808`.
 
 2. Endpoints:
 
-   - **GET /**
-
-     Returns a welcome message for the URL Shortener service.
-
+   - **GET /**: Welcome message
      ```sh
      curl http://localhost:9808/
      ```
-
      Response:
-
      ```json
      {
        "message": "The URL Shortener Service!"
      }
      ```
 
-   - **POST /shorten**
-
-     Shortens a given URL.
-
+   - **POST /shorten**: Shorten a URL
      ```sh
      curl -X POST -H "Content-Type: application/json" -d '{"url":"http://example.com"}' http://localhost:9808/shorten
      ```
-
      Response:
-
      ```json
      {
        "shortUrl": "http://localhost:9808/abcd1234"
      }
      ```
 
-   - **GET /:shortUrl**
-
-     Redirects to the original URL using the shortened URL.
-
+   - **GET /:shortUrl**: Redirect to original URL
      ```sh
      curl http://localhost:9808/abcd1234
      ```
-
      This will redirect to `http://example.com`.
 
 ## Project Structure
 
-- **main.go**: The main entry point of the application.
-- **handler/**: Contains the logic for handling URL shortening and redirection.
-- **store/**: Contains the logic for storing and retrieving URL mappings.
-
-## Error Handling
-
-If the server fails to start, it will panic and print the error message.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to customize this README file according to your project's specifics and requirements.
+- `main.go`: Main entry point
+- `handler/`: URL handling logic
+- `store/`: URL storage logic

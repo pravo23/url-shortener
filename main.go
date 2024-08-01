@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"github.com/pravo23/url-shortener/handler"
+	"github.com/pravo23/url-shortener/store"
 )
 
 func main() {
@@ -12,9 +14,19 @@ func main() {
 
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
-			"message": "Hey! URL Shortener!",
+			"message": "The URL Shortener Service!",
 		})
 	})
+
+	r.POST("/shorten", func(ctx *gin.Context) {
+		handler.CreateShortUrl(ctx)
+	})
+
+	r.GET("/:shortUrl", func(ctx *gin.Context) {
+		handler.ShortUrlRedirect(ctx)
+	})
+
+	store.InitializeStore()
 
 	err := r.Run(":9808")
 

@@ -1,72 +1,68 @@
-# URL Shortener Service
+# URL Shortener
 
-A simple URL Shortener service built with the Gin framework.
+A simple and efficient URL shortening service built in Go using Gin. This service shortens long URLs and allows you to retrieve the original URL.
 
 ## Features
 
-- Shorten URLs
-- Redirect shortened URLs to original URLs
+- Shorten long URLs
+- Retrieve original URLs from short codes
+- Lightweight and fast
 
-## Requirements
+## Getting Started
 
-- Go 1.16+
-- Gin framework
-
-## Installation
+### Using Docker Compose
 
 1. Clone the repository:
-   ```sh
+   ```bash
    git clone https://github.com/pravo23/url-shortener.git
-   ```
-2. Navigate to the project directory:
-   ```sh
    cd url-shortener
    ```
-3. Install dependencies:
-   ```sh
-   go mod tidy
+
+2. Build and start the services:
+   ```bash
+   docker-compose up --build
    ```
 
-## Usage
+3. Access the application at `http://localhost:9808`.
 
-1. Start the server:
-   ```sh
-   go run main.go
+### API Endpoints
+
+- **GET /**  
+  Returns a service message.  
+  **Response:** `{"message": "The URL Shortener Service!"}`
+
+- **POST /shorten**  
+  Shortens a URL.  
+  **Request Body:** `{"url": "http://example.com"}`  
+  **Response:** `{"shortened_url": "http://short.url/abcd1234"}`
+
+- **GET /{shortUrl}**  
+  Redirects to the original URL.  
+  **Request URL:** `http://localhost:9808/{shortUrl}`
+
+## Running Locally (Without Docker)
+
+1. Build the application:
+   ```bash
+   go build -o main .
    ```
-   The server will run on port `9808`.
 
-2. Endpoints:
+2. Ensure Redis is running locally on port 6379.
 
-   - **GET /**: Welcome message
-     ```sh
-     curl http://localhost:9808/
-     ```
-     Response:
-     ```json
-     {
-       "message": "The URL Shortener Service!"
-     }
-     ```
+3. Set Redis environment variables:
+   ```bash
+   export REDIS_HOST=localhost
+   export REDIS_PORT=6379
+   ```
 
-   - **POST /shorten**: Shorten a URL
-     ```sh
-     curl -X POST -H "Content-Type: application/json" -d '{"url":"http://example.com"}' http://localhost:9808/shorten
-     ```
-     Response:
-     ```json
-     {
-       "shortUrl": "http://localhost:9808/abcd1234"
-     }
-     ```
+4. Run the application:
+   ```bash
+   ./main
+   ```
 
-   - **GET /:shortUrl**: Redirect to original URL
-     ```sh
-     curl http://localhost:9808/abcd1234
-     ```
-     This will redirect to `http://example.com`.
+## Acknowledgements
 
-## Project Structure
-
-- `main.go`: Main entry point
-- `handler/`: URL handling logic
-- `store/`: URL storage logic
+- [Golang](https://golang.org/)
+- [Gin](https://gin-gonic.com/)
+- [Redis](https://redis.io/)
+- [Alpine Linux](https://www.alpinelinux.org/)

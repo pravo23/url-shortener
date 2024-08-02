@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "9808:9808"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=host.docker.internal
+      - REDIS_PORT=6379
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
